@@ -18,23 +18,10 @@ resource "aws_security_group" "Terraform-sg" {
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]  # Allowing traffic from any IPv4 address, you may need to adjust this
     }
-  }
-
-  # Egress rules (Allow all traffic out)
-  dynamic "egress" {
-    for_each = [22,80,443,3000,9090,9100]
-        content {
-      from_port   = egress.value
-      to_port     = egress.value
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]  # Allowing traffic from any IPv4 address, you may need to adjust this
-    }
-    
-  }
-#   egress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
+   egress {
+     from_port   = 0
+     to_port     = 0
+     protocol    = "-1"
+     cidr_blocks = ["0.0.0.0/0"]
+   }
 }
