@@ -1,20 +1,3 @@
-variable "vpc_cidr" {
-  description = "VPC CIDR Block"
-}
-
-variable "public_subnet_cidr_1a" {
-  description = "Public Subnet CIDR"
-}
-variable "public_subnet_cidr_2a" {
-  
-}
-
-variable "private_subnet_cidr" {
-  description = "Private Subnet CIDR"
-}[root@ip-172-31-6-8 vpc]# cd ../security_group/
-[root@ip-172-31-6-8 security_group]# ls
-main.tf  output.tf  variable.tf
-[root@ip-172-31-6-8 security_group]# cat main.tf 
 resource "aws_security_group" "Terraform-sg" {
   name        = "Terrafrom-sg"
   description = "security group allowing traffic on multiple ports"
@@ -24,9 +7,6 @@ resource "aws_security_group" "Terraform-sg" {
   tags = {
     Name="Terraform-sg"
   }
-
-
-
 
 
   # Ingress rules
