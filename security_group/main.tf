@@ -10,19 +10,21 @@ resource "aws_security_group" "Terraform-sg" {
 
 
   # Ingress rules
-  dynamic "ingress" {
-    for_each = [22,80,443,3000,9090,9100]
+ dynamic "ingress" {
+    for_each = [22, 80, 443, 3306, 8080]
+    iterator = port
     content {
-      from_port   = ingress.value
-      to_port     = ingress.value
+      description = "TLC from VPC"
+      from_port   = port.value
+      to_port     = port.value
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]  # Allowing traffic from any IPv4 address, you may need to adjust this
+      cidr_blocks = ["0.0.0.0/0"]
     }
-   egress {
-     from_port   = 0
-     to_port     = 0
-     protocol    = "-1"
-     cidr_blocks = ["0.0.0.0/0"]
-   }
- }
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
