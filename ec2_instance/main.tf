@@ -11,11 +11,10 @@ resource "aws_instance" "my_instances" {
   # user_data = file("${path.modules}/user_data_script.sh")
     user_data = <<-EOF
     #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y nginx
+    sudo yum update
+    sudo yum install nginx -y
+    sudo echo "Hey, Terraform User$HOSTNAME" > /usr/share/nginx/html/index.html
     sudo systemctl start nginx
-    sudo systemctl enable nginx
-    echo "This is my nginx server$HOSTNAME" > /var/www/html/index.html
     EOF
   tags = {
     Name = "Instance-${count.index}"
